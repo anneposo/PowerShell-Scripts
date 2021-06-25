@@ -2,6 +2,8 @@
 # 
 # PowerShell script that uses Azure DevOps Services REST API 6.0 to loop through a list of
 # VSTS projects and update the GitHub service connection with new Personal Access Token (PAT).
+#
+# NOTE: Update variables $token, $organizationName, $githubToken with your appropriate values.
 
 # Requires VSTS PAT with Service Connections scope (READ, QUERY, & MANAGE)
 $token = "Azure DevOps Personal Access Token"
@@ -11,11 +13,9 @@ $headers = @{
     Authorization = ("Basic {0}" -f $authentication)
 }
 
-# Name of Azure DevOps organization
-$organizationName = "Org-Name"
-
-# Path to output error logs
-$updateConnLog = ".\output\UpdateServiceConnection-Error.txt"
+$organizationName = "Org-Name" # Name of Azure DevOps organization
+$githubToken = "GitHub Personal Access Token" # GitHub PAT to authorize Azure DevOps GitHub service connection
+$updateConnLog = ".\output\UpdateServiceConnection-Error.txt" # Path to output error logs
 
 # Get project's existing service connections and return GitHub service connection ID
 function Get-ServiceConnection($projectName) {
@@ -40,7 +40,7 @@ function Update-ServiceConnection($projectName, $connID) {
 
     # New GitHub PAT to update on VSTS service connection
     $tokenParam = @{
-        accessToken = "GitHub PAT"
+        accessToken = $githubToken
     }
 
     $githubConnInfo.value.authorization.scheme = "PersonalAccessToken"
