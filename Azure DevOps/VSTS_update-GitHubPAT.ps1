@@ -43,6 +43,7 @@ function Update-ServiceConnection($projectName, $connID) {
         accessToken = $githubToken
     }
 
+    # JSON request body needs authorization scheme as PAT and add parameters for access token value
     $githubConnInfo.value.authorization.scheme = "PersonalAccessToken"
     $githubConnInfo.value.authorization | Add-Member -MemberType NoteProperty -Name "parameters" -Value $tokenParam -Force -PassThru
 
