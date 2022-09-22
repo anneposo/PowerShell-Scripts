@@ -1,4 +1,21 @@
-# Deletes bulk user O365 accounts from input excel sheet
+<#
+    .SYNOPSIS
+		Imports an excel list of users and goes through each user to assign an E3 Microsoft
+        license, enable litigation hold, and finally delete the O365 user account.
+	
+	.DESCRIPTION
+        The script imports an excel list of users and first checks if there are at least 75 E3 
+        Microsoft licenses available to assign. If there are enough, it will work in batches of 
+        50 users at a time to assign the E3 license, enable litigation hold, then delete the user 
+        to free up the license again for the next batch.
+
+		Users are deleted with a 6 month litigation hold and their mailbox is converted to an
+        inactive mailbox to hold their associated mailbox data until the litigation hold expires.
+
+        The script will export two reports:
+            DeletedUsers-yyyy-MM-dd.csv             - List of users that were successfully deleted
+            ErrorLog-DeletedUsers-yyyy-MM-dd.csv    - List of users that output an error on action calls
+#>
 
 # Local filepaths
 $MacPath = "/Users/user/Documents/scripts/cleanup/"
