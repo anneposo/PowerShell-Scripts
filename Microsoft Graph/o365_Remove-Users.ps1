@@ -3,7 +3,7 @@
 	Imports an excel list of users and goes through each user to assign an E3 Microsoft
         license, enable litigation hold, and finally delete the O365 user account.
 	
-	.DESCRIPTION
+    .DESCRIPTION
         The script imports an excel list of users and first checks if there are at least 75 E3 
         Microsoft licenses available to assign. If there are enough, it will work in batches of 
         50 users at a time to assign the E3 license, enable litigation hold, then delete the user 
